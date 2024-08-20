@@ -1,4 +1,6 @@
 from ttkbootstrap import Frame, Label, Entry, Button, LabelFrame, PhotoImage
+from BusinessLogicLayer.task_business_logic import TaskBusinessLogic
+from CommonLayer import global_variables
 from ttkbootstrap.dialogs import Messagebox
 
 
@@ -16,7 +18,7 @@ class LoginFrame(Frame):
         self.logo_label = Label(self, image=self.logo)
         self.logo_label.grid(row=1, column=0, pady=10)
 
-        self.login_form_frame = LabelFrame(self, text="Sign in", padding=10)
+        self.login_form_frame = LabelFrame(self, text="Sign in", padding=15)
         self.login_form_frame.grid(row=2, column=0, pady=10, padx=10, sticky="nsew")
 
         self.login_form_frame.grid_columnconfigure(0, weight=1)
@@ -42,16 +44,16 @@ class LoginFrame(Frame):
         username = self.username_entry.get().lower()
         password = self.password_entry.get()
 
-        # user_business = UserBusinessLogic()
-        # response = user_business.login(username, password)
+        user_business = TaskBusinessLogic()
+        response = user_business.login(username, password)
 
-        # if not response.success:
-        #     Messagebox.show_error(response.message, "Error")
-        # else:
-        #     self.clear_login_entry()
-        #     home_frame = self.main_view.switch_frame("home")
-        #     global_variables.current_user = response.data
-        #     home_frame.set_home_user()
+        if not response.success:
+            Messagebox.show_error(response.message, "Error")
+        else:
+            self.clear_login_entry()
+            home_frame = self.main_view.switch_frame("home")
+            global_variables.current_user = response.data
+            home_frame.set_home_user()
 
     def clear_login_entry(self):
         self.username_entry.delete(0, "end")
