@@ -74,6 +74,7 @@ class AdminManageFrame(Frame):
                                                  task.start_date, task.due_date, task.completion_date))
             self.row_list.append(row)
             row_number += 1
+            print("teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest")
 
     def show_home_frame(self):
         self.search_entry.delete(0, "end")
