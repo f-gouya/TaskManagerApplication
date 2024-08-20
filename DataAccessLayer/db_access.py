@@ -44,7 +44,6 @@ class DBAccess:
             FROM Task
             Where assigned_by ==  ?""", (current_user_id,)).fetchall()
             for item in data:
-                print(item)
                 task = Task.create_instance_tuple(item)
                 task_list.append(task)
 

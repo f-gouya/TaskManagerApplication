@@ -30,13 +30,15 @@ class AdminManageFrame(Frame):
         self.deactivate_button = Button(self, text="Deactivate", width=15, command=None)
         self.deactivate_button.grid(row=2, column=0, pady=(0, 10), padx=10, sticky="e")
 
-        task_column = ("NO", "Name", "Progress Status", "Assigned to", "Creation Date",
+        task_column = ("No", "Name", "Progress Status", "Assigned to", "Creation Date",
                        "Start Date", "Due Date", "Completion Date")
 
-        self.task_table = Treeview(self, columns=task_column)
+        self.task_table = Treeview(self, columns=task_column, show='headings')
         self.task_table.grid(row=3, column=0, pady=(0, 10), padx=10, sticky="nsew")
 
-        [self.task_table.heading(f"#{i}", text=task_column[i]) for i in range(len(task_column))]
+        for column in task_column:
+            self.task_table.heading(column, text=column, anchor="center")
+            self.task_table.column(column, anchor="center")
 
         self.scrollbar = Scrollbar(self, orient=VERTICAL, command=self.task_table.yview)
         self.scrollbar.grid(row=3, column=1, sticky='ns')
@@ -63,13 +65,13 @@ class AdminManageFrame(Frame):
             self.task_table.delete(row)
         self.row_list.clear()
 
-        row_number = 2
+        row_number = 1
         for task in task_list:
             row = self.task_table.insert("",
                                          "end",
                                          iid=task.id,
                                          text=str(row_number),
-                                         values=(task.name.capitalize(),
+                                         values=(row_number, task.name.capitalize(),
                                                  task.progress_status, task.assigned_to, task.creation_date,
                                                  task.start_date, task.due_date, task.completion_date))
             self.row_list.append(row)
