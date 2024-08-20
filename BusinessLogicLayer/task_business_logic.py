@@ -1,5 +1,6 @@
 from CommonLayer.reponse import Response
 from DataAccessLayer.db_access import DBAccess
+from CommonLayer import global_variables
 import hashlib
 
 
@@ -21,3 +22,8 @@ class TaskBusinessLogic:
         hash_string = hashlib.md5(password.encode())
         hash_password = hash_string.hexdigest()
         return hash_password
+
+    def get_tasks(self):
+        if global_variables.current_user.role_id == 2:
+            task_list = self.data_access.get_all_tasks(global_variables.current_user.id)
+            return task_list
