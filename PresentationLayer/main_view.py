@@ -1,7 +1,8 @@
 from PresentationLayer.window import Windows
 from PresentationLayer.login import LoginFrame
 from PresentationLayer.home import HomeFrame
-from PresentationLayer.admin_manage_form import AdminManageFrame
+from PresentationLayer.manager_manage_form import ManagerManageForm
+from PresentationLayer.assignee_manage_form import AssigneeManageForm
 
 
 class MainView:
@@ -9,7 +10,8 @@ class MainView:
         self.window = Windows()
 
         self.frames = {}
-        self.add_frame("admin_manage", AdminManageFrame(self.window, self))
+        self.add_frame("manager_manage_frame", ManagerManageForm(self.window, self))
+        self.add_frame("assignee_manage_frame", AssigneeManageForm(self.window, self))
         self.add_frame("home", HomeFrame(self.window, self))
         self.add_frame("login", LoginFrame(self.window, self))
 

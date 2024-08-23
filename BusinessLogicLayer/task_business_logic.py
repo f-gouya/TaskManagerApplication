@@ -24,6 +24,5 @@ class TaskBusinessLogic:
         return hash_password
 
     def get_tasks(self):
-        if global_variables.current_user.role_id == 2:
-            task_list = self.data_access.get_all_tasks(global_variables.current_user.id)
-            return task_list
+        task_list = self.data_access.get_all_tasks(global_variables.current_user.id)
+        return task_list

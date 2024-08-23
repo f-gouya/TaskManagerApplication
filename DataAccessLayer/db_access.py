@@ -1,6 +1,7 @@
 import sqlite3
 from CommonLayer.user import User
 from CommonLayer.task import Task
+from CommonLayer import global_variables
 
 
 class DBAccess:
@@ -30,19 +31,35 @@ class DBAccess:
         task_list = []
         with sqlite3.connect(self.database_name) as connection:
             cursor = connection.cursor()
-            data = cursor.execute("""
-            SELECT id,
-                   name,
-                   progress_status,
-                   assigned_to,
-                   creation_date,
-                   start_date,
-                   due_date,
-                   completion_date,
-                   assigned_by,
-                   description
-            FROM Task
-            Where assigned_by ==  ?""", (current_user_id,)).fetchall()
+            if global_variables.current_user.role_id == 2:
+                data = cursor.execute("""
+                SELECT id,
+                       name,
+                       progress_status,
+                       assigned_to,
+                       creation_date,
+                       start_date,
+                       due_date,
+                       completion_date,
+                       assigned_by,
+                       description
+                FROM Task
+                Where assigned_by ==  ?""", (current_user_id,)).fetchall()
+            else:
+                print("data")
+                data = cursor.execute("""
+                                SELECT id,
+                                       name,
+                                       progress_status,
+                                       assigned_to,
+                                       creation_date,
+                                       start_date,
+                                       due_date,
+                                       completion_date,
+                                       assigned_by,
+                                       description
+                                FROM Task
+                                Where assigned_to ==  ?""", (current_user_id,)).fetchall()
             for item in data:
                 task = Task.create_instance_tuple(item)
                 task_list.append(task)
