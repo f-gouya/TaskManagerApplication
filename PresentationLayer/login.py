@@ -29,6 +29,7 @@ class LoginFrame(Frame):
         self.username_entry = Entry(self.login_form_frame)
         self.username_entry.grid(row=1, column=0, pady=(0, 10), padx=10, sticky="ew")
         self.username_entry.bind("<Return>", lambda _: self.login())
+        self.username_entry.insert(0, "farzad.gouya")
 
         self.password_label = Label(self.login_form_frame, text="Password")
         self.password_label.grid(row=2, column=0, padx=10, sticky="w")
@@ -36,6 +37,7 @@ class LoginFrame(Frame):
         self.password_entry = Entry(self.login_form_frame, show="*")
         self.password_entry.grid(row=3, column=0, pady=(0, 15), padx=10, sticky="ew")
         self.password_entry.bind("<Return>", lambda _: self.login())
+        self.password_entry.insert(0, "P@ssw0rd")
 
         self.login_button = Button(self, text="Login", width=15, command=self.login)
         self.login_button.grid(row=3, column=0, pady=10, padx=10, sticky="ew")

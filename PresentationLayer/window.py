@@ -5,7 +5,7 @@ class Windows(Window):
     def __init__(self):
         super().__init__(themename="flatly")
 
-        self.geometry("800x500")
+        # self.geometry("800x500")
         self.title("Task Manager Application")
 
         self.grid_rowconfigure(0, weight=1)

@@ -1,4 +1,4 @@
-from ttkbootstrap import Frame, Label, Button, Entry, Treeview, Scrollbar, VERTICAL
+from ttkbootstrap import Frame, Label, LabelFrame, Button, Entry, Treeview, Scrollbar, VERTICAL
 from BusinessLogicLayer.task_business_logic import TaskBusinessLogic
 
 
@@ -14,21 +14,28 @@ class AdminManageFrame(Frame):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(3, weight=1)
 
-        self.header = Label(self, text="User Management Form")
-        self.header.grid(row=0, column=0, pady=10, padx=10, sticky="w")
+        self.manage_form_frame = LabelFrame(self, text="Manage Tasks", padding=15)
+        self.manage_form_frame.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
 
-        self.back_button = Button(self, text="Back", width=15, command=self.show_home_frame)
-        self.back_button.grid(row=0, column=0, pady=10, padx=10, sticky="e")
+        self.manage_form_frame.grid_columnconfigure([index for index in range(4)], weight=1)
 
-        self.search_entry = Entry(self, width=30)
-        self.search_entry.grid(row=1, column=0, pady=(0, 10), padx=10, sticky="ew")
+        self.create_button = Button(self.manage_form_frame, text="Create", width=15, command=None)
+        self.create_button.grid(row=0, column=0, pady=10, padx=10, sticky="w")
+
+        self.edit_button = Button(self.manage_form_frame, text="Edit", width=15, command=None)
+        self.edit_button.grid(row=0, column=1, pady=10, padx=10)
+
+        self.delete_button = Button(self.manage_form_frame, text="Delete", width=15, command=None)
+        self.delete_button.grid(row=0, column=2, pady=10, padx=10)
+
+        self.back_button = Button(self.manage_form_frame, text="Back", width=15, command=self.show_home_frame)
+        self.back_button.grid(row=0, column=3, pady=10, padx=10, sticky="e")
+
+        self.search_entry = Entry(self.manage_form_frame, width=30)
+        self.search_entry.grid(row=1, column=0, columnspan=4, pady=(0, 10), padx=10, sticky="ew")
         self.search_entry.bind("<KeyRelease>", self.search)
-
-        self.activate_button = Button(self, text="Activate", width=15, command=None)
-        self.activate_button.grid(row=2, column=0, pady=(0, 10), padx=10, sticky="w")
-
-        self.deactivate_button = Button(self, text="Deactivate", width=15, command=None)
-        self.deactivate_button.grid(row=2, column=0, pady=(0, 10), padx=10, sticky="e")
+        # self.search_entry.bind("<FocusIn>", lambda event: self.search_entry.delete(0, "end"))
+        # self.search_entry.bind("<FocusOut>", lambda event: self.search_entry.insert(0, "Search"))
 
         task_column = ("No", "Name", "Progress Status", "Assigned to", "Creation Date",
                        "Start Date", "Due Date", "Completion Date")
