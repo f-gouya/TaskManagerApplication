@@ -26,3 +26,13 @@ class TaskBusinessLogic:
     def get_tasks(self):
         task_list = self.data_access.get_all_tasks(global_variables.current_user.id)
         return task_list
+
+    def search(self, term):
+        task_list = self.data_access.get_all_tasks(global_variables.current_user.id)
+        search_list = []
+        print(term)
+        for task in task_list:
+            if term in task.name.lower():
+                print(task.name)
+                search_list.append(task)
+        return search_list

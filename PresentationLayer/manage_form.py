@@ -10,7 +10,7 @@ class ManageFrame(Frame):
         self.main_view = view
 
         self.row_list = []
-        self.user_business = TaskBusinessLogic()
+        self.task_business = TaskBusinessLogic()
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(3, weight=1)
@@ -36,22 +36,18 @@ class ManageFrame(Frame):
 
         self.scrollbar = Scrollbar(self, orient=VERTICAL, command=self.task_table.yview)
         self.scrollbar.grid(row=3, column=1, sticky='ns')
-        self.task_table.configure(yscrollcommand=self.scrollbar.set)
 
     def search(self, _):
         term = self.search_entry.get().lower()
-        # user_list = self.user_business.search(term)
-        # self.fill_table(user_list)
-        #
-        # user_list = self.load_data()
-        # self.fill_table(user_list)
+        task_list = self.task_business.search(term)
+        self.fill_table(task_list)
 
     def set_task_info(self):
         task_list = self.load_data()
         self.fill_table(task_list)
 
     def load_data(self):
-        task_list = self.user_business.get_tasks()
+        task_list = self.task_business.get_tasks()
         return task_list
 
     def fill_table(self, task_list):
