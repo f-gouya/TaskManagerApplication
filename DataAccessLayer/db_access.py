@@ -65,6 +65,9 @@ class DBAccess:
 
         return task_list
 
+    def find_user_info(self, user_id):
+        pass
+
     # def search(self, term):
     #     task_list = []
     #     with sqlite3.connect(self.database_name) as connection:
