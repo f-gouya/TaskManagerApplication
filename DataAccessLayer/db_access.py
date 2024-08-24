@@ -66,3 +66,9 @@ class DBAccess:
                 task_list.append(task)
 
         return task_list
+
+    def delete_task(self, task_id):
+        with sqlite3.connect(self.database_name) as connection:
+            cursor = connection.cursor()
+            cursor.execute("DELETE FROM Task WHERE id = ?", (task_id,))
+            connection.commit()

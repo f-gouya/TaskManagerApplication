@@ -9,6 +9,7 @@ class ManagerManageForm(ManageFrame):
 
         self.edit_button.grid(row=0, column=1, pady=10, padx=10)
 
+        self.delete_button.configure(command=self.delete_task)
         self.delete_button.grid(row=0, column=2, pady=10, padx=10)
 
         self.back_button.grid(row=0, column=3, pady=10, padx=10, sticky="e")
@@ -23,3 +24,11 @@ class ManagerManageForm(ManageFrame):
         for column in task_column:
             self.task_table.heading(column, text=column, anchor="center")
             self.task_table.column(column, anchor="center")
+
+    def delete_task(self):
+        task_id_list = self.task_table.selection()
+        for task_id in task_id_list:
+            self.task_business.delete_selected_task(task_id)
+
+        task_list = self.load_data()
+        self.fill_table(task_list)

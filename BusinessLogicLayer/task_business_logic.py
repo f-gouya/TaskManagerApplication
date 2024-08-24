@@ -38,3 +38,7 @@ class TaskBusinessLogic:
                 if term in task.name.lower() or term in task.assigned_by:
                     search_list.append(task)
         return search_list
+
+    def delete_selected_task(self, task_id):
+        if global_variables.current_user.role_id == 2:
+            self.data_access.delete_task(task_id)
