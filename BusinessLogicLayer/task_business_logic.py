@@ -31,6 +31,10 @@ class TaskBusinessLogic:
         task_list = self.data_access.get_all_tasks(global_variables.current_user.id)
         search_list = []
         for task in task_list:
-            if term in task.name.lower():
-                search_list.append(task)
+            if global_variables.current_user.role_id == 2:
+                if term in task.name.lower() or term in task.assigned_to:
+                    search_list.append(task)
+            else:
+                if term in task.name.lower() or term in task.assigned_by:
+                    search_list.append(task)
         return search_list

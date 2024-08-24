@@ -63,8 +63,12 @@ class ManageFrame(Frame):
                                          text=str(row_number),
                                          values=(row_number, task.name.capitalize(),
                                                  task.progress_status,
-                                                 task.assigned_to if global_variables.current_user.role_id == 2
-                                                 else task.assigned_by, task.creation_date,
+                                                 ' '.join([word.capitalize() for word in task.assigned_to.split()])
+                                                 if
+                                                 global_variables.current_user.role_id == 2
+                                                 else
+                                                 ' '.join([word.capitalize() for word in task.assigned_by.split()]),
+                                                 task.creation_date,
                                                  task.start_date, task.due_date, task.completion_date))
             self.row_list.append(row)
             row_number += 1
