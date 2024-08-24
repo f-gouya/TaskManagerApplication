@@ -72,3 +72,24 @@ class DBAccess:
             cursor = connection.cursor()
             cursor.execute("DELETE FROM Task WHERE id = ?", (task_id,))
             connection.commit()
+
+    def fetch_username(self):
+        user_list = []
+        with sqlite3.connect(self.database_name) as connection:
+            cursor = connection.cursor()
+            data = cursor.execute("""
+            SELECT id,
+                   first_name,
+                   last_name,
+                   username,
+                   password,
+                   role_id
+            FROM User
+            Where role_id = ?
+            """, (1,)).fetchall()
+
+            for item in data:
+                user = User.create_instance_tuple(item)
+                user_list.append(user)
+
+        return user_list

@@ -39,6 +39,13 @@ class TaskBusinessLogic:
                     search_list.append(task)
         return search_list
 
-    def delete_selected_task(self, task_id):
+    def delete_selected_task(self, task_id_list):
         if global_variables.current_user.role_id == 2:
-            self.data_access.delete_task(task_id)
+            for task_id in task_id_list:
+                self.data_access.delete_task(task_id)
+
+    def fetch_assignee_username(self):
+        username_list = []
+        if global_variables.current_user.role_id == 2:
+            username_list = self.data_access.fetch_username()
+        return username_list

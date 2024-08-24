@@ -5,6 +5,7 @@ class ManagerManageForm(ManageFrame):
     def __init__(self, window, view):
         super().__init__(window, view)
 
+        self.create_button.configure(command=self.load_create_task_frame)
         self.create_button.grid(row=0, column=0, pady=10, padx=10, sticky="w")
 
         self.edit_button.grid(row=0, column=1, pady=10, padx=10)
@@ -25,10 +26,13 @@ class ManagerManageForm(ManageFrame):
             self.task_table.heading(column, text=column, anchor="center")
             self.task_table.column(column, anchor="center")
 
+    def load_create_task_frame(self):
+        frame = self.main_view.switch_frame("task_info_form")
+        frame.fetch_username()
+
     def delete_task(self):
         task_id_list = self.task_table.selection()
-        for task_id in task_id_list:
-            self.task_business.delete_selected_task(task_id)
+        self.task_business.delete_selected_task(task_id_list)
 
         task_list = self.load_data()
         self.fill_table(task_list)
