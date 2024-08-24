@@ -1,7 +1,5 @@
 from ttkbootstrap import Frame, Label, LabelFrame, Button, Entry, DateEntry, Combobox, Text
 from BusinessLogicLayer.task_business_logic import TaskBusinessLogic
-from datetime import datetime
-from CommonLayer import global_variables
 
 
 class TaskInfoFrame(Frame):
@@ -69,4 +67,3 @@ class TaskInfoFrame(Frame):
         self.assignee_combobox.set('')
         self.task_description_text.delete('1.0', "end")
         self.task_name_entry.delete(0, "end")
-        today = datetime.today().date()
