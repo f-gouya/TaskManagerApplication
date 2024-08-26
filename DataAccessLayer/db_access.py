@@ -93,3 +93,15 @@ class DBAccess:
                 user_list.append(user)
 
         return user_list
+
+    def create_new_task(self, task):
+        print(task.name)
+        print(task.progress_status)
+        print(task.assigned_to)
+        print(task.creation_date)
+        print(task.start_date)
+        print(task.due_date)
+        print(task.completion_date)
+        print(task.assigned_by)
+        print(task.description)
+

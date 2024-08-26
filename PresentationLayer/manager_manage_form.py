@@ -27,7 +27,7 @@ class ManagerManageForm(ManageFrame):
             self.task_table.column(column, anchor="center")
 
     def load_create_task_frame(self):
-        frame = self.main_view.switch_frame("task_info_form")
+        frame = self.main_view.switch_frame("create_task_frame")
         frame.fetch_username()
 
     def delete_task(self):

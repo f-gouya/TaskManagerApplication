@@ -1,6 +1,8 @@
 from CommonLayer.reponse import Response
 from DataAccessLayer.db_access import DBAccess
 from CommonLayer import global_variables
+from CommonLayer.task import Task
+from datetime import datetime
 import hashlib
 
 
@@ -49,3 +51,13 @@ class TaskBusinessLogic:
         if global_variables.current_user.role_id == 2:
             username_list = self.data_access.fetch_username()
         return username_list
+
+    def create_task(self, task_name, assigned_to, start_date, due_date, assigned_by, description):
+        try:
+            task_info = Task(None, task_name, 0, assigned_to, datetime.now().strftime("%Y-%m-%d"),
+                             start_date, due_date, "", assigned_by, description)
+        except ValueError as e:
+            return Response(None, False, f"{e}")
+        else:
+            self.data_access.create_new_task(task_info)
+            return Response(None, True, f"The Task is created successfully.")
