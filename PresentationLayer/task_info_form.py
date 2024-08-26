@@ -1,5 +1,6 @@
 from ttkbootstrap import Frame, Label, LabelFrame, Button, Entry, DateEntry, Combobox, Text
 from BusinessLogicLayer.task_business_logic import TaskBusinessLogic
+from datetime import datetime
 
 
 class TaskInfoFrame(Frame):
@@ -60,11 +61,20 @@ class TaskInfoFrame(Frame):
     def fetch_username(self):
         self.user_list = self.task_business.fetch_assignee_username()
         self.assignee_combobox.configure(values=self.user_list)
-        print(f"+++++++++++++{self.user_list}++++++++++++++++")
 
     def show_manager_frame(self):
         frame = self.main_view.switch_frame("manager_manage_frame")
         frame.set_task_info()
+        self.clear_widget()
+
+    def clear_widget(self):
         self.assignee_combobox.set('')
         self.task_description_text.delete('1.0', "end")
         self.task_name_entry.delete(0, "end")
+
+        current_date = datetime.now().strftime('%Y-%m-%d')
+
+        self.from_date_entry.entry.delete(0, "end")  # Clear any existing value
+        self.from_date_entry.entry.insert(0, current_date)
+        self.to_date_entry.entry.delete(0, "end")  # Clear any existing value
+        self.to_date_entry.entry.insert(0, current_date)
