@@ -60,6 +60,7 @@ class TaskInfoFrame(Frame):
     def fetch_username(self):
         self.user_list = self.task_business.fetch_assignee_username()
         self.assignee_combobox.configure(values=self.user_list)
+        print(f"+++++++++++++{self.user_list}++++++++++++++++")
 
     def show_manager_frame(self):
         frame = self.main_view.switch_frame("manager_manage_frame")

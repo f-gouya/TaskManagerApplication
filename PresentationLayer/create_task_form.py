@@ -12,6 +12,7 @@ class CreateTaskFrame(TaskInfoFrame):
     def create_new_task(self):
         task_name = self.task_name_entry.get()
         assigned_to = [user.id for user in self.user_list if self.assignee_combobox.get() == user]
+        print(f"---------{[print(user) for user in self.user_list]}---------")
         start_date = self.from_date_entry.entry.get()
         due_date = self.to_date_entry.entry.get()
         assigned_by = global_variables.current_user.id
