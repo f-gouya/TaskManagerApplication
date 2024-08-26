@@ -104,3 +104,4 @@ class DBAccess:
         print(task.completion_date)
         print(task.assigned_by)
         print(task.description)
+        print("Yes!")
