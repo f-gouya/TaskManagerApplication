@@ -1,4 +1,26 @@
+class NameValue:
+    def __init__(self, min_length, max_length):
+        self.min_length = min_length
+        self.max_length = max_length
+
+    def __set_name__(self, owner, name):
+        self._attribute_name = name
+
+    def __get__(self, instance, owner):
+        return instance.__dict__[self._attribute_name]
+
+    def __set__(self, instance, value):
+        if (not isinstance(value, str) or len(value) < self.min_length
+                or len(value) > self.max_length or not value.isalpha()):
+            raise ValueError("The first name and lastname must be at least 3 characters and contain only letters.")
+        else:
+            instance.__dict__[self._attribute_name] = value
+
+
 class User:
+    first_name = NameValue(3, 20)
+    last_name = NameValue(3, 20)
+
     def __init__(self, uid, firstname, lastname, username, password, role_id):
         self.id = uid
         self.first_name = firstname
