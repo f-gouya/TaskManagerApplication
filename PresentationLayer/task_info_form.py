@@ -49,6 +49,12 @@ class TaskInfoFrame(Frame):
         self.task_description_label = Label(self.task_label, text="Description")
         self.task_description_label.grid(row=2, column=0, pady=10, padx=10, sticky="w")
 
+        self.task_progress_label = Label(self.task_label, text="Progress status")
+        self.task_progress_label.grid(row=2, column=2, pady=10, padx=10, sticky="w")
+
+        self.task_progress_entry = Entry(self.task_label)
+        self.task_progress_entry.grid(row=2, column=3, pady=10, padx=10, sticky="ew")
+
         self.task_description_text = Text(self.task_label, height=5)
         self.task_description_text.grid(row=3, column=0, columnspan=4, pady=(0, 10), padx=10, sticky="ew")
 
