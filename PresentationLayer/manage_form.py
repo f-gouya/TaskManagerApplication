@@ -20,11 +20,11 @@ class ManageFrame(Frame):
 
         self.manage_form_frame.grid_columnconfigure([index for index in range(4)], weight=1)
 
-        self.create_button = Button(self.manage_form_frame, text="Create", width=15, command=None)
+        self.create_button = Button(self.manage_form_frame, text="Create", width=15)
 
-        self.edit_button = Button(self.manage_form_frame, text="Edit", width=15, command=None)
+        self.edit_button = Button(self.manage_form_frame, text="Edit", width=15)
 
-        self.delete_button = Button(self.manage_form_frame, text="Delete", width=15, command=None)
+        self.delete_button = Button(self.manage_form_frame, text="Delete", width=15)
 
         self.back_button = Button(self.manage_form_frame, text="Back", width=15, command=self.show_home_frame)
 
@@ -41,6 +41,10 @@ class ManageFrame(Frame):
         term = self.search_entry.get().lower()
         task_list = self.task_business.search(term)
         self.fill_table(task_list)
+
+    def load_edit_task_frame(self):
+        frame = self.main_view.switch_frame("edit_task_frame")
+        # frame.fetch_username()
 
     def set_task_info(self):
         task_list = self.load_data()

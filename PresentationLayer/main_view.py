@@ -4,6 +4,7 @@ from PresentationLayer.home import HomeFrame
 from PresentationLayer.manager_manage_form import ManagerManageForm
 from PresentationLayer.assignee_manage_form import AssigneeManageForm
 from PresentationLayer.create_task_form import CreateTaskFrame
+from PresentationLayer.edit_task_form import EditTaskFrame
 
 
 class MainView:
@@ -12,6 +13,7 @@ class MainView:
 
         self.frames = {}
 
+        self.add_frame("edit_task_frame", EditTaskFrame(self.window, self))
         self.add_frame("create_task_frame", CreateTaskFrame(self.window, self))
         self.add_frame("manager_manage_frame", ManagerManageForm(self.window, self))
         self.add_frame("assignee_manage_frame", AssigneeManageForm(self.window, self))
