@@ -95,12 +95,20 @@ class DBAccess:
         return user_list
 
     def create_new_task(self, task):
-        print(task.name)
-        print(task.progress_status)
-        print(task.assigned_to)
-        print(task.creation_date)
-        print(task.start_date)
-        print(task.due_date)
-        print(task.completion_date)
-        print(task.assigned_by)
-        print(task.description)
+        with sqlite3.connect(self.database_name) as connection:
+            cursor = connection.cursor()
+            cursor.execute("""
+            INSERT INTO Task (name,
+                              progress_status,
+                              assigned_to,
+                              creation_date,
+                              start_date,
+                              due_date,
+                              completion_date,
+                              assigned_by,
+                              description)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """, (task.name, task.progress_status, task.assigned_to, task.creation_date, task.start_date,
+              task.due_date, task.completion_date, task.assigned_by, task.description))
+
+            connection.commit()
