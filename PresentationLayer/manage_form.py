@@ -22,7 +22,7 @@ class ManageFrame(Frame):
 
         self.create_button = Button(self.manage_form_frame, text="Create", width=15)
 
-        self.edit_button = Button(self.manage_form_frame, text="Edit", width=15)
+        self.edit_button = Button(self.manage_form_frame, text="Edit", width=15, command=self.load_edit_task_frame)
 
         self.delete_button = Button(self.manage_form_frame, text="Delete", width=15)
 
@@ -43,8 +43,13 @@ class ManageFrame(Frame):
         self.fill_table(task_list)
 
     def load_edit_task_frame(self):
-        frame = self.main_view.switch_frame("edit_task_frame")
-        # frame.fetch_username()
+        task_id_list = self.task_table.selection()
+        task_list = self.load_data()
+        if task_id_list:
+            selected_task_id = task_id_list[0]
+            frame = self.main_view.switch_frame("edit_task_frame")
+            task_info = next(task for task in task_list if int(task.id) == int(selected_task_id))
+            frame.fill_task_widget(task_info)
 
     def set_task_info(self):
         task_list = self.load_data()

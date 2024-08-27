@@ -7,7 +7,31 @@ class EditTaskFrame(TaskInfoFrame):
     def __init__(self, window, view):
         super().__init__(window, view)
 
+        self.task_label.config(text="Edit Tasks")
+        self.task_progress_label.grid(row=2, column=2, pady=10, padx=10, sticky="w")
+        self.task_progress_entry.grid(row=2, column=3, pady=10, padx=10, sticky="ew")
         self.confirm_button.configure(command=self.edit_task)
+
+    def fill_task_widget(self, task_info):
+        self.task_name_entry.insert("end", task_info.name)
+        self.task_name_entry.config(state='readonly')
+        self.task_progress_entry.delete(0, "end")
+        self.task_progress_entry.insert("end", task_info.progress_status)
+        if global_variables.current_user.role_id == 2:
+            self.assignee_label.config(text="Assigned to")
+            self.assignee_combobox.set(' '.join([word.capitalize() for word in task_info.assigned_to.split()]))
+        else:
+            self.assignee_label.config(text="Assigned by")
+            self.assignee_combobox.set(' '.join([word.capitalize() for word in task_info.assigned_by.split()]))
+        self.assignee_combobox.config(state='readonly')
+        self.from_date_entry.entry.delete(0, "end")
+        self.from_date_entry.entry.insert(0, task_info.start_date)
+        self.from_date_entry.entry.config(state='readonly')
+        self.to_date_entry.entry.delete(0, "end")
+        self.to_date_entry.entry.insert(0, task_info.due_date)
+        self.to_date_entry.entry.config(state='readonly')
+        self.task_description_text.insert('1.0', task_info.description)
+        self.task_description_text.config(state='disabled')
 
     def edit_task(self):
         task_name = self.task_name_entry.get()

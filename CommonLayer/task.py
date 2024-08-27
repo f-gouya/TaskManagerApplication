@@ -77,25 +77,8 @@ class NotNoneValue:
         instance.__dict__[self._attribute_name] = value
 
 
-class NumericValue:
-    def __init__(self):
-        self._attribute_name = None
-
-    def __set_name__(self, owner, name):
-        self._attribute_name = name
-
-    def __get__(self, instance, owner):
-        return instance.__dict__.get(self._attribute_name)
-
-    def __set__(self, instance, value):
-        if not isinstance(value, (int, float)):
-            raise ValueError(f"{self._attribute_name} must be a numeric value!")
-        instance.__dict__[self._attribute_name] = value
-
-
 class Task:
     name = StrValue(3, 50)
-    progress_status = NumericValue()
     assigned_to = NotNoneValue()
     creation_date = DateValue()
     start_date = DateValue()
@@ -116,6 +99,17 @@ class Task:
         self.completion_date = completion_date
         self.assigned_by = assigned_by
         self.description = description
+
+    @property
+    def progress_status(self):
+        return self._progress_status
+
+    @progress_status.setter
+    def progress_status(self, value):
+        if not isinstance(value, int) or not 0 <= value <= 100:
+            raise ValueError("Invalid progress status value. Must be an integer between 0 and 100.")
+        else:
+            self._progress_status = value
 
     @classmethod
     def create_instance_tuple(cls, data_tuple):

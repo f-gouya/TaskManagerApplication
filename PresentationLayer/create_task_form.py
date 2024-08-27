@@ -7,6 +7,8 @@ class CreateTaskFrame(TaskInfoFrame):
     def __init__(self, window, view):
         super().__init__(window, view)
 
+        self.task_label.config(text="Create Tasks")
+        self.assignee_label.config(text="Assigned to")
         self.confirm_button.configure(command=self.create_new_task)
 
     def create_new_task(self):

@@ -15,7 +15,7 @@ class TaskInfoFrame(Frame):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
-        self.task_label = LabelFrame(self, text="Create Tasks", padding=15)
+        self.task_label = LabelFrame(self, padding=15)
         self.task_label.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
 
         self.task_label.grid_columnconfigure(1, weight=1)
@@ -28,7 +28,7 @@ class TaskInfoFrame(Frame):
         self.task_name_entry = Entry(self.task_label)
         self.task_name_entry.grid(row=0, column=1, pady=10, padx=10, sticky="ew")
 
-        self.assignee_label = Label(self.task_label, text="Assign to")
+        self.assignee_label = Label(self.task_label)
         self.assignee_label.grid(row=0, column=2, pady=10, padx=10, sticky="w")
 
         self.assignee_combobox = Combobox(self.task_label, state='readonly')
@@ -50,10 +50,8 @@ class TaskInfoFrame(Frame):
         self.task_description_label.grid(row=2, column=0, pady=10, padx=10, sticky="w")
 
         self.task_progress_label = Label(self.task_label, text="Progress status")
-        self.task_progress_label.grid(row=2, column=2, pady=10, padx=10, sticky="w")
 
         self.task_progress_entry = Entry(self.task_label)
-        self.task_progress_entry.grid(row=2, column=3, pady=10, padx=10, sticky="ew")
 
         self.task_description_text = Text(self.task_label, height=5)
         self.task_description_text.grid(row=3, column=0, columnspan=4, pady=(0, 10), padx=10, sticky="ew")
@@ -81,7 +79,7 @@ class TaskInfoFrame(Frame):
 
         current_date = datetime.now().strftime('%Y-%m-%d')
 
-        self.from_date_entry.entry.delete(0, "end")  # Clear any existing value
+        self.from_date_entry.entry.delete(0, "end")
         self.from_date_entry.entry.insert(0, current_date)
-        self.to_date_entry.entry.delete(0, "end")  # Clear any existing value
+        self.to_date_entry.entry.delete(0, "end")
         self.to_date_entry.entry.insert(0, current_date)
