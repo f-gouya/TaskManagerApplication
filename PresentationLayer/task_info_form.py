@@ -31,7 +31,7 @@ class TaskInfoFrame(Frame):
         self.assignee_label = Label(self.task_label, text="Assign to")
         self.assignee_label.grid(row=0, column=2, pady=10, padx=10, sticky="w")
 
-        self.assignee_combobox = Combobox(self.task_label)
+        self.assignee_combobox = Combobox(self.task_label, state='readonly')
         self.assignee_combobox.grid(row=0, column=3, pady=10, padx=10, sticky="ew")
 
         self.from_date_label = Label(self.task_label, text="From")
@@ -60,6 +60,7 @@ class TaskInfoFrame(Frame):
 
     def fetch_username(self):
         self.user_list = self.task_business.fetch_assignee_username()
+        self.user_list = sorted(self.user_list, key=str)
         self.assignee_combobox.configure(values=self.user_list)
 
     def show_manager_frame(self):

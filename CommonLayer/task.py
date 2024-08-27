@@ -27,6 +27,17 @@ class DateValue:
             elif not isinstance(value, datetime):
                 raise ValueError(f"{self._attribute_name}"
                                  f" must be a datetime object or a string in the format {self.date_format}")
+
+        if self._attribute_name == "start_date" or self._attribute_name == "due_date":
+            creation_date = instance.__dict__.get("creation_date")
+            if creation_date and value < creation_date:
+                raise ValueError(f"{self._attribute_name} cannot be before creation date")
+
+        if self._attribute_name == "due_date":
+            start_date = instance.__dict__.get("start_date")
+            if start_date and value < start_date:
+                raise ValueError(f"{self._attribute_name} cannot be before start date")
+
         instance.__dict__[self._attribute_name] = value
 
 
@@ -44,18 +55,54 @@ class StrValue:
     def __set__(self, instance, value):
         if (not isinstance(value, str) or len(value) < self.min_length
                 or len(value) > self.max_length):
-            raise ValueError("The task name must be at least 3 characters.\nThe description can't be empty.")
+            raise ValueError(f"The {self._attribute_name} must be at least {self.min_length}"
+                             f" characters and no more than {self.max_length} characters!")
         else:
             instance.__dict__[self._attribute_name] = value
 
 
+class NotNoneValue:
+    def __init__(self):
+        self._attribute_name = None
+
+    def __set_name__(self, owner, name):
+        self._attribute_name = name
+
+    def __get__(self, instance, owner):
+        return instance.__dict__.get(self._attribute_name)
+
+    def __set__(self, instance, value):
+        if value == "":
+            raise ValueError(f"{self._attribute_name} cannot be None!")
+        instance.__dict__[self._attribute_name] = value
+
+
+class NumericValue:
+    def __init__(self):
+        self._attribute_name = None
+
+    def __set_name__(self, owner, name):
+        self._attribute_name = name
+
+    def __get__(self, instance, owner):
+        return instance.__dict__.get(self._attribute_name)
+
+    def __set__(self, instance, value):
+        if not isinstance(value, (int, float)):
+            raise ValueError(f"{self._attribute_name} must be a numeric value!")
+        instance.__dict__[self._attribute_name] = value
+
+
 class Task:
     name = StrValue(3, 50)
-    description = StrValue(3, 200)
+    progress_status = NumericValue()
+    assigned_to = NotNoneValue()
     creation_date = DateValue()
     start_date = DateValue()
     due_date = DateValue()
     completion_date = DateValue(allow_null=True)
+    assigned_by = NotNoneValue()
+    description = StrValue(3, 200)
 
     def __init__(self, tid, name, progress_status, assigned_to, creation_date,
                  start_date, due_date, completion_date, assigned_by, description):

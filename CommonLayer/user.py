@@ -12,7 +12,7 @@ class NameValue:
     def __set__(self, instance, value):
         if (not isinstance(value, str) or len(value) < self.min_length
                 or len(value) > self.max_length or not value.isalpha()):
-            raise ValueError("The first name and lastname must be at least 3 characters and contain only letters.")
+            raise ValueError(f"The {self._attribute_name} must be at least 3 characters and contain only letters.")
         else:
             instance.__dict__[self._attribute_name] = value
 
