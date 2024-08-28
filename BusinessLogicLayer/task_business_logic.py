@@ -12,7 +12,7 @@ class TaskBusinessLogic:
 
     def login(self, username, password):
         if not username or not password:
-            return Response(None, False, "Invalid inputs.")
+            return Response(None, False, "Please enter the username and password.")
         hash_password = self.password_hashing(password)
         user = self.data_access.get_user(username, hash_password)
         if not user:
