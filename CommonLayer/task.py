@@ -106,10 +106,13 @@ class Task:
 
     @progress_status.setter
     def progress_status(self, value):
+        self.validate_progress_status(value)
+        self._progress_status = value
+
+    @classmethod
+    def validate_progress_status(cls, value):
         if not isinstance(value, int) or not 0 <= value <= 100:
             raise ValueError("Invalid progress status value. Must be an integer between 0 and 100.")
-        else:
-            self._progress_status = value
 
     @classmethod
     def create_instance_tuple(cls, data_tuple):

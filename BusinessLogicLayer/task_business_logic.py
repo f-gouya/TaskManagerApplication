@@ -61,3 +61,12 @@ class TaskBusinessLogic:
         else:
             self.data_access.create_new_task(task_info)
             return Response(None, True, f"The Task is created successfully.")
+
+    def edit_task(self, task_id, progress_status):
+        try:
+            Task.validate_progress_status(progress_status)
+        except ValueError as e:
+            return Response(None, False, f"{e}")
+        else:
+            self.data_access.update_progress_status(task_id, progress_status)
+            return Response(None, True, f"The Task is changed successfully.")

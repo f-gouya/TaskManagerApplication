@@ -112,3 +112,13 @@ class DBAccess:
               task.due_date, task.completion_date, task.assigned_by, task.description))
 
             connection.commit()
+
+    def update_progress_status(self, task_id, progress_status):
+        with sqlite3.connect(self.database_name) as connection:
+            cursor = connection.cursor()
+            cursor.execute("""
+            Update Task
+            Set progress_status = ?
+            Where id = ?""", (progress_status, task_id))
+
+            connection.commit()
