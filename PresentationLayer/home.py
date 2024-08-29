@@ -16,8 +16,8 @@ class HomeFrame(Frame):
         self.manage_button = Button(self, text="Manage")
         self.manage_button.grid(row=1, column=0, pady=(0, 10), padx=20, sticky="ew")
 
-        self.report_button = Button(self, text="Report", command=self.logout)
-        self.report_button.grid(row=2, column=0, pady=(0, 10), padx=20, sticky="ew")
+        # self.report_button = Button(self, text="Report", command=self.logout)
+        # self.report_button.grid(row=2, column=0, pady=(0, 10), padx=20, sticky="ew")
 
         self.logout_button = Button(self, text="Logout", command=self.logout)
         self.logout_button.grid(row=3, column=0, pady=(0, 10), padx=20, sticky="ew")

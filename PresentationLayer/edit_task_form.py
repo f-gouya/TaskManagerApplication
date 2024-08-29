@@ -60,8 +60,8 @@ class EditTaskFrame(TaskInfoFrame):
             Messagebox.show_error(response.message, "Warning")
         else:
             Messagebox.show_info(response.message, "Info")
-            self.show_manager_frame()
+            self.show_manage_frame()
             self.confirm_button.configure(state="disabled")
 
-    def enable_confirm_button(self, event):
+    def enable_confirm_button(self, _):
         self.confirm_button.config(state="normal")

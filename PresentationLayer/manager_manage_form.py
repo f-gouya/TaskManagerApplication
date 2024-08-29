@@ -1,4 +1,5 @@
 from PresentationLayer.manage_form import ManageFrame
+from ttkbootstrap.dialogs import Messagebox
 
 
 class ManagerManageForm(ManageFrame):
@@ -32,7 +33,8 @@ class ManagerManageForm(ManageFrame):
 
     def delete_task(self):
         task_id_list = self.task_table.selection()
-        self.task_business.delete_selected_task(task_id_list)
+        response = self.task_business.delete_selected_task(task_id_list)
+        Messagebox.show_info(response.message, "Info")
 
         task_list = self.load_data()
         self.fill_table(task_list)

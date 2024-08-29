@@ -1,5 +1,6 @@
 from ttkbootstrap import Frame, Label, LabelFrame, Button, Entry, DateEntry, Combobox, Text
 from BusinessLogicLayer.task_business_logic import TaskBusinessLogic
+from CommonLayer import global_variables
 from datetime import datetime
 
 
@@ -66,17 +67,21 @@ class TaskInfoFrame(Frame):
         self.confirm_button = Button(self.task_label, text="Confirm", width=15)
         self.confirm_button.grid(row=4, column=0, pady=10, padx=10, sticky="w")
 
-        self.back_button = Button(self.task_label, text="Back", width=15, command=self.show_manager_frame)
+        self.back_button = Button(self.task_label, text="Back", width=15, command=self.show_manage_frame)
         self.back_button.grid(row=4, column=3, pady=10, padx=10, sticky="e")
 
     def fetch_username(self):
+        self.confirm_button.configure(state="normal")
         self.user_list = self.task_business.fetch_assignee_username()
         self.user_list = sorted(self.user_list, key=str)
         self.assignee_combobox.configure(values=self.user_list)
 
-    def show_manager_frame(self):
+    def show_manage_frame(self):
         self.confirm_button.configure(state="disabled")
-        frame = self.main_view.switch_frame("manager_manage_frame")
+        if global_variables.current_user.role_id == 2:
+            frame = self.main_view.switch_frame("manager_manage_frame")
+        else:
+            frame = self.main_view.switch_frame("assignee_manage_frame")
         frame.set_task_info()
         self.clear_widget()
 

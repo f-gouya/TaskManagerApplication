@@ -45,6 +45,7 @@ class TaskBusinessLogic:
         if global_variables.current_user.role_id == 2:
             for task_id in task_id_list:
                 self.data_access.delete_task(task_id)
+            return Response(None, True, f"Selected Tasks are deleted successfully.")
 
     def fetch_assignee_username(self):
         username_list = []
