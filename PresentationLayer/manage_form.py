@@ -36,7 +36,7 @@ class ManageFrame(Frame):
         self.filter_var = StringVar(value="all")
 
         self.radio_frame = Label(self.manage_form_frame)
-        self.radio_frame.grid(row=2, column=0,columnspan=4, pady=10, padx=10, sticky="nsew")
+        self.radio_frame.grid(row=2, column=0, columnspan=4, pady=10, padx=10, sticky="nsew")
         self.radio_frame.grid_columnconfigure(0, weight=1)
         self.radio_frame.grid_columnconfigure(1, weight=1)
         self.radio_frame.grid_columnconfigure(2, weight=1)

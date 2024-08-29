@@ -19,7 +19,6 @@ class MainView:
         self.add_frame("assignee_manage_frame", AssigneeManageForm(self.window, self))
         self.add_frame("home", HomeFrame(self.window, self))
         self.add_frame("login", LoginFrame(self.window, self))
-        # self.add_frame("task_info_form", TaskInfoFrame(self.window, self))
 
         self.window.show_form()
 
